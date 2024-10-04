@@ -5,6 +5,7 @@
 # - health increases when you find a health item
 # - use your creativity
 
+
 # Define a class for the Player
 class Player:
     def __init__(self, name, current_room, rooms):
@@ -21,15 +22,17 @@ class Player:
         elif direction == "right":
             new_x += 1
         elif direction == "up":
-            new_y -= 1
-        elif direction == "down":
             new_y += 1
+            # new_y -= 1
+        elif direction == "down":
+            new_y -= 1
+
         else:
             print("Invalid direction.")
             return
 
         # Find room at the new coordinates
-        new_room = None # Initialize new_room to None
+        new_room = None  # Initialize new_room to None
         # Loop through all rooms in self.rooms
         for room in self.rooms:
             # Check if the current room's coordinates match the target coordinates
@@ -40,7 +43,19 @@ class Player:
         if new_room:
             self.current_room = new_room
             self.visited_rooms.add(new_room)
-            print(f"You are now in the {new_room.name}.")
+            cure_room_items = self.current_room.get_items()
+
+            # Beginner: When the user enters any room, expand the description and print the items present in
+            # the room and, make a story around it
+
+            description_to_print: str = f"You are now in the {new_room.name}."
+
+            print(description_to_print)
+
+            message: str = "In deze room zijn deze items present: "
+            for item in cure_room_items:
+                message += f"{item}"
+            print(message)
         else:
             print(f"You can't go that way")
 
@@ -61,6 +76,11 @@ class Player:
         else:
             print("Your inventory is empty.")
 
+    def has_user_got_key(self) -> bool:
+        if "Key" in self.inventory:
+            return True
+        return False
+
     def show_map(self):
         self.display_map()
 
@@ -74,7 +94,9 @@ class Player:
 
         # Create the map grid
         # Added spaces to determinate the length of the cell
-        map_grid = [["      " for _ in range(min_x, max_x + 1)] for _ in range(min_y, max_y + 1)]
+        map_grid = [
+            ["      " for _ in range(min_x, max_x + 1)] for _ in range(min_y, max_y + 1)
+        ]
 
         # Place rooms in the grid
         for room in self.visited_rooms:
