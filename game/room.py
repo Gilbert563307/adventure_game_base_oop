@@ -20,6 +20,9 @@ class Room:
 
     def get_items(self):
         return self.items
+    
+    def get_room_name(self):
+        return self.name
 
     def __str__(self):
         return f"{self.name}\n\n{self.description}\n"
