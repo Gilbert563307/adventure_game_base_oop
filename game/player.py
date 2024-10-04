@@ -23,7 +23,6 @@ class Player:
             new_x += 1
         elif direction == "up":
             new_y += 1
-            # new_y -= 1
         elif direction == "down":
             new_y -= 1
 
@@ -77,8 +76,9 @@ class Player:
             print("Your inventory is empty.")
 
     def has_user_got_key(self) -> bool:
-        if "Key" in self.inventory:
-            return True
+        for item in self.inventory:
+            if item.name == "Key":
+                return True
         return False
 
     def show_map(self):

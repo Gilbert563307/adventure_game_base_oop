@@ -39,9 +39,9 @@ def setup_game(player_name):
     )
 
     # • Beginner: Add an extra room
-    golf_room = Room("Golf room", "You can golf in this room", x=1, y=2)
+    golf_room = Room("Golf room", "You can golf in this room", x=0, y=2)
 
-    hidden_room = Room("Hidden room", "You are now in a sceret hidden room", x=1, y=3)
+    hidden_room = Room("Hidden room", "You are now in a sceret hidden room", x=0, y=3)
 
     # Intermediate: Hide a treasure somewhere, which could be opened by a certain key (item)
 
@@ -104,8 +104,8 @@ def play_game(user):
                 print("The following items are available: ")
                 print("0. I don't want to pick anything up")
 
-                for item in items:
-                    print(f"1. {item.name}")
+                for index, item in enumerate(items):
+                    print(f"{index+1}. {item.name}")
                 chosen_item = int(input("Which item would you like to pick up: "))
                 if chosen_item != 0:
                     user_has_key = user.has_user_got_key()
